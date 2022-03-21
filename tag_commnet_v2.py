@@ -12,7 +12,7 @@ from datetime import datetime
 from instaloader import instaloader
 # driver
 path = Service('geckodriver.exe')
-driver = webdriver.Firefox(executable_path=path)
+driver = webdriver.Firefox(service=path)
 # import files
 accounts = open('accounts.txt').read().split('-')
 target_users = open('target_users.txt').read().split(',')
