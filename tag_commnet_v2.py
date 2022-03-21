@@ -1,5 +1,6 @@
 from random import random
 from selenium import webdriver
+from selenium.webdriver.firefox.service import Service
 import random
 import time
 import os
@@ -10,7 +11,8 @@ import ast
 from datetime import datetime
 from instaloader import instaloader
 # driver
-driver = webdriver.Firefox(executable_path='geckodriver.exe')
+path = Service('geckodriver.exe')
+driver = webdriver.Firefox(executable_path=path)
 # import files
 accounts = open('accounts.txt').read().split('-')
 target_users = open('target_users.txt').read().split(',')
@@ -73,6 +75,8 @@ for account in accounts:
                             if len(follower_list) == 2:
                                 break
                     print(f'{Fore.GREEN} Extracting is Done! {Fore.RESET} \n')
+                    print('Refreshing... \n')
+                    driver.refresh()
                     for user in follower_list:
                         print('Sending Commnet!...')
                         try:
@@ -97,8 +101,8 @@ for account in accounts:
                         except:
                             continue
                 except:
-                    print('Logouting... \n')
-                    driver.get(logout_url)
+                    print('Refreshing... \n')
+                    driver.refresh()
             print('Logouting... \n')
             driver.get(logout_url)
         else:
@@ -107,5 +111,5 @@ for account in accounts:
             continue
     except:
         continue
-print('Finished')
+print('Finished' + '\a')
 driver.quit()
